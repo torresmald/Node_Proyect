@@ -10,6 +10,7 @@ userRouter.get('/', async (request, response, next) => {
         if (allUsers.length === 0) {
             return response.status(200).json('No hay usuarios registrados');
         }
+        return response.status(200).json(allUsers)
     } catch (error) {
         return next(error)
     }
