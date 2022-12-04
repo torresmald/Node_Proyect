@@ -43,7 +43,7 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use('/', (request, response) => {
+server.get('/', (request, response) => {
   response.status(200).json('Bienvenido a la Coleccion de Películas y Cines')
 })
 server.use('/users', userRouter);
