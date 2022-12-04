@@ -4,6 +4,8 @@ const Cinema = require('../model/Cinemas.js');
 const createError = require('../utils/errors/createError.js');
 const isAuth = require('../utils/middlewares/auth.middleware.js');
 const isAuthAdmin = require('../utils/middlewares/auth.middleware.js');
+const upload = require ('../utils/middlewares/files.middleware');
+const uploadToCloud = require ('../utils/middlewares/cloudinary.middleware');
 
 cinemasRouter.get('/', [isAuth], async (request, response, next) => {
     try {
@@ -28,9 +30,10 @@ cinemasRouter.get('/movie/:movie', [isAuth], async (request, response, next) => 
         next(error)
     }
 });
-cinemasRouter.post('/', [isAuthAdmin], async (request, response, next) => {
+cinemasRouter.post('/', [isAuthAdmin, upload.single('picture'), uploadToCloud], async (request, response, next) => {
     try {
-        const newCinema = new Cinema({ ...request.body });
+        
+        const newCinema = new Cinema({ ...request.body, picture: request.file_url });
         const newCinemaDoc = await newCinema.save();
         if (newCinemaDoc.length === 0) {
             return next(createError(`Error al crear el cine`, 404))

@@ -4,8 +4,8 @@ const cinemaSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
         location: { type: String, required: true, unique: true },
-        movies: { type: mongoose.Types.ObjectId, ref: 'Movie' },
-        number_theater: Number
+        movies: [{ type: mongoose.Types.ObjectId, ref: 'Movie' }],
+        picture: String
     },
     {
         timestamps: true

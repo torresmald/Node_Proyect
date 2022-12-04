@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 
 const moviesTheaterSchema = new mongoose.Schema(
     {
+        number: {type: Number, unique: true, required: true},
         rows: { type: Number, required: true },
         seats: { type: Number, required: true },
-        movies: { type: mongoose.Types.ObjectId, ref: 'Movies'}
+        cinema: [{ type: mongoose.Types.ObjectId, ref: 'Cinema'}],
+        movies: [{ type: mongoose.Types.ObjectId, ref: 'Movie'}]
     },
     {
         timestamps: true

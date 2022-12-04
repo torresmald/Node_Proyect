@@ -18,6 +18,33 @@ moviesRouter.get('/', [isAuth], async (request, response, next) => {
         next(error)
     }
 });
+moviesRouter.get('/paged', async (request, response, next) => {
+    try {
+        let page = request.query.page;
+        const startPage = (page - 1) * 5;
+        const endPage = page * 5;
+        const allMovies = await Movie.find();
+        if (allMovies.length === 0) {
+            return next(createError('No hay películas disponibles', 404))
+        }
+        if (!page) {
+            return next(createError('No se ha indicado un número de página valido', 404))
+        }
+        page = parseInt(page, 10);
+        const pagedMovies = allMovies.slice(0, 5);
+        const maxPage = Math.ceil(allMovies.length / 5);
+        if (page <= 0 || (page - 1) * 5 > allMovies.length - 1) {
+            return response.status(404).json(`La página no existe, la primera página es: 1 y la ultima pagina es : ${maxPage}`);
+        }
+        response.status(200).json({
+            movies: allMovies.slice(startPage, endPage),
+            nextPage: page + 1 <=  maxPage ? page + 1 : null,
+            previousPage: page - 1 < 1 ? null : page - 1
+        });
+    } catch (error) {
+        next(error)
+    }
+});
 moviesRouter.get('/id/:id', [isAuth], async (request, response, next) => {
     try {
         const idMovie = request.params.id;

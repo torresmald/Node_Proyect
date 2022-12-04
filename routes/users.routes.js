@@ -1,12 +1,14 @@
 const express = require('express');
 const passport = require('passport');
+const Movie = require('../model/Movies');
 const User = require('../model/Users');
 const userRouter = express.Router();
-const createError = require ('../utils/errors/createError.js');
+const createError = require('../utils/errors/createError.js');
+const isAuthAdmin = require('../utils/middlewares/auth.middleware');
 
 userRouter.get('/', async (request, response, next) => {
     try {
-        const allUsers = await User.find();
+        const allUsers = await User.find().populate('favoriteMovies');
         if (allUsers.length === 0) {
             return response.status(200).json('No hay usuarios registrados');
         }
@@ -65,11 +67,40 @@ userRouter.post('/logout', async (request, response, next) => {
         return response.status(304).json('No hay usuario logueado')
     }
 });
+
+userRouter.put('/addFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
+    try {
+        const { userId, movieId } = request.body;
+        const currentMovie = await Movie.findById(movieId);
+        const userUpdated = await User.findByIdAndUpdate(
+            userId,
+            { $push: { favoriteMovies: currentMovie } },
+            { new: true }
+        );
+        return response.status(201).json(userUpdated);
+    } catch (error) {
+        return next(error)
+    }
+});
+// userRouter.put('/removeFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
+//     try {
+//         const { userId, movieId } = request.body;
+//         const currentMovie = await Movie.findById(movieId);
+//         const userUpdated = await User.findByIdAndUpdate(
+//             userId,
+//             { $pull: { favoriteMovies: currentMovie } },
+//             { new: true }
+//         );
+//         return response.status(201).json(userUpdated);
+//     } catch (error) {
+//         return next(error)
+//     }
+// });
 userRouter.delete('/:id', async (request, response, next) => {
     try {
         const id = request.params.id;
         const userToDelete = await User.findByIdAndDelete(id);
-        if (!userToDelete){
+        if (!userToDelete) {
             return next(createError(`No existe el usuario con Id: ${id}`))
         }
         response.status(200).json(`Usuario con Id: ${id} eliminado con éxito`);
