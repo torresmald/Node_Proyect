@@ -7,7 +7,8 @@ const createError = require ('./utils/errors/createError.js');
 const server = express();
 const moviesRouter = require('./routes/movies.routes.js');
 const cinemasRouter = require ('./routes/cinemas.routes.js');
-const userRouter = require ('./routes/users.routes.js')
+const userRouter = require ('./routes/users.routes.js');
+const theaterRouter = require('./routes/theater.routes.js')
 const passport = require('passport');
 const session = require ('express-session');
 const MongoStore = require ('connect-mongo');
@@ -43,9 +44,10 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.use('/', (request, response) => {
-  response.status(200).json('Bienvenindo a la Coleccion de Películas y Cines')
+  response.status(200).json('Bienvenido a la Coleccion de Películas y Cines')
 })
 server.use('/users', userRouter);
+server.use('/theaters', theaterRouter)
 server.use('/movies', moviesRouter);
 server.use('/cinemas', cinemasRouter);
 server.use('*', (request, response, next) => {
