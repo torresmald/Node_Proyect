@@ -56,3 +56,5 @@ server.use((error, request, response, next) => {
 server.listen(PORT, () => {
   console.log(`Listening in http://localhost:${PORT}`);
 });
+
+module.exports = server;

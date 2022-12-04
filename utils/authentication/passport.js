@@ -11,17 +11,17 @@ passport.use(
         passwordField: "password",
         passReqToCallback: true
     },
-        async (req, username, password, done) => {
+        async (request, username, password, done) => {
             try {
                 const previousUser = await User.findOne({ username });
                 if (previousUser) {
                     return done(createError('El usuario ya existe, logueate'));
                 }
                 const encryptedPassword = await bcrypt.hash(password, 10);
-                const newUser = await new User({
+                const newUser =  new User({
                     username,
                     password: encryptedPassword,
-                    role: req.body.role
+                    role: request.body.role
                 });
                 const savedUser = await newUser.save();
                 return done(null, savedUser)
