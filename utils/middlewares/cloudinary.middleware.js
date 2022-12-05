@@ -1,3 +1,5 @@
+//* MIDDLEWARE EN EL QUE CREAMOS UNA FUNCION QUE NOS PERMITE LA SUBIDA DE ARCHIVOS A UN HOST DE IMAGENES. EN ESTE CASO CLOUDINARY.
+
 const cloudinary = require('cloudinary');
 const fs = require ('fs');
 

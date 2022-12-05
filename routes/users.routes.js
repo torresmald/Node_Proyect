@@ -1,3 +1,10 @@
+//* CONJUNTO DE ENDPOINTS PARA LA COLECCIÓN DE PELÍCULAS:
+//! ES NECESARIO ESTAR LOGUEADO COMO ADMIN PARA PODER ELIMINAR USUARIOS
+//? ENDPOINTS GET PARA RECOGER UNA LISTA DE TODOS LOS USUARIOS EXISTENTES.
+//? ENDPOINTS POST PARA REGISTRARSE COMO USUARIO Y HACER LOGIN
+//? ENDPOINTS PUT PARA MODIFICAR UN USUARIO Y QUE PUEDA AÑADIR UNA PELÍCULA COMO FAVORITA A SU LISTADO.
+//? ENDPOINTS DELETE PARA ELIMINAR UN USUARIO.
+
 const express = require('express');
 const passport = require('passport');
 const Movie = require('../model/Movies');
@@ -96,7 +103,7 @@ userRouter.put('/addFavoriteMovie', [isAuthAdmin] ,async (request, response, nex
 //         return next(error)
 //     }
 // });
-userRouter.delete('/:id', async (request, response, next) => {
+userRouter.delete('/:id', [isAuthAdmin] ,async (request, response, next) => {
     try {
         const id = request.params.id;
         const userToDelete = await User.findByIdAndDelete(id);
