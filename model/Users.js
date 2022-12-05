@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {type: String, required: true},
     role: {type: String, enum: ["admin", "user"]},
-    favoriteMovies : [{type: mongoose.Types.ObjectId, ref: 'Movie'}]
+    favoriteMovies : [{ type: mongoose.Types.ObjectId, ref: 'Movie' }],
 },
     {
         timestamps: true

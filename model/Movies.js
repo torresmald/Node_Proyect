@@ -13,7 +13,8 @@ const movieSchema = new mongoose.Schema(
         director: { type: String, required: true },
         year: { type: Number, min: 1895, max: 2023, required: true },
         genre: { type: [String], required: true, enum: ['Action', 'Adventure', 'Animated', 'Crime', 'Comedy', 'Drama', 'Fantasy', 'Historical', 'Horror', 'Noir', 'Science-fiction', 'Thriller', 'War', 'Western'] },
-        picture: String
+        picture: String,
+        favoriteCount : Number
     },
     {
         timestamps: true

@@ -30,15 +30,15 @@ server.use(express.static(path.join(__dirname, 'public')));
 
 require('./utils/authentication/passport.js');
 server.use(session({
-  secret: process.env.SESSION_SECRET_KEY,
+  secret: "NodeProyectJtorres",
   resave: false,
   saveUninitialized: false,
   cookie: {
       maxAge: 7200000
   },
-  store: MongoStore.create({
-    mongoUrl: DB_URL
-  })
+  // store: MongoStore.create({
+  //   mongoUrl: DB_URL
+  // })
 }));
 server.use(passport.initialize());
 server.use(passport.session());

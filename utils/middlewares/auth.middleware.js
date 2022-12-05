@@ -17,5 +17,4 @@ const isAuthAdmin = (request, response, next) => {
         return next((createError('No tienes permisos para acceder, haz login/register para acceder', 401)))
     }
 }
-
 module.exports = isAuth, isAuthAdmin;

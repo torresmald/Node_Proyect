@@ -2,7 +2,7 @@
 //! ES NECESARIO ESTAR LOGUEADO COMO ADMIN PARA PODER ELIMINAR USUARIOS
 //? ENDPOINTS GET PARA RECOGER UNA LISTA DE TODOS LOS USUARIOS EXISTENTES.
 //? ENDPOINTS POST PARA REGISTRARSE COMO USUARIO Y HACER LOGIN
-//? ENDPOINTS PUT PARA MODIFICAR UN USUARIO Y QUE PUEDA AÑADIR UNA PELÍCULA COMO FAVORITA A SU LISTADO.
+//? ENDPOINTS PUT PARA MODIFICAR UN USUARIO Y QUE PUEDA AÑADIR/QUITAR UNA PELÍCULA COMO FAVORITA A SU LISTADO.
 //? ENDPOINTS DELETE PARA ELIMINAR UN USUARIO.
 
 const express = require('express');
@@ -74,9 +74,28 @@ userRouter.post('/logout', async (request, response, next) => {
         return response.status(304).json('No hay usuario logueado')
     }
 });
-
-userRouter.put('/addFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
+userRouter.put('/editUser/:id', [isAuthAdmin], async (request, response, next) => {
     try {
+        const id = request.params.id;
+        const modifiedUser = new User({ ...request.body });
+        modifiedUser._id = id;
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            modifiedUser,
+            { new: true }
+        );
+        if (!updatedUser) {
+            return next(createError(`No se encuentra el usuario con el Id: ${id} para actualizarlo`, 404))
+        }
+        return response.status(201).json(updatedUser);
+    } catch (error) {
+        return next(error)
+    }
+});
+
+userRouter.put('/addFavoriteMovie', [isAuthAdmin], async (request, response, next) => {
+    try {
+        debugger;
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
         const userUpdated = await User.findByIdAndUpdate(
@@ -89,21 +108,22 @@ userRouter.put('/addFavoriteMovie', [isAuthAdmin] ,async (request, response, nex
         return next(error)
     }
 });
-// userRouter.put('/removeFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
-//     try {
-//         const { userId, movieId } = request.body;
-//         const currentMovie = await Movie.findById(movieId);
-//         const userUpdated = await User.findByIdAndUpdate(
-//             userId,
-//             { $pull: { favoriteMovies: currentMovie } },
-//             { new: true }
-//         );
-//         return response.status(201).json(userUpdated);
-//     } catch (error) {
-//         return next(error)
-//     }
-// });
-userRouter.delete('/:id', [isAuthAdmin] ,async (request, response, next) => {
+userRouter.put('/removeFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
+    try {
+        debugger
+        const { userId, movieId } = request.body;
+        const currentMovie = await Movie.findById(movieId);
+        const userUpdated = await User.findByIdAndUpdate(
+            userId,
+            { $pull: { favoriteMovies: movieId } },
+            { new: true }
+        );
+        return response.status(201).json(userUpdated);
+    } catch (error) {
+        return next(error)
+    }
+});
+userRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
     try {
         const id = request.params.id;
         const userToDelete = await User.findByIdAndDelete(id);

@@ -3,11 +3,12 @@
 //? ENDPOINTS GET PARA RECOGER TODAS LAS PELÍCULAS, DAMOS LA OPCIÓN DE TRAERLAS PAGINADAS. TAMBIEN TENEMOS LAS OPCIONES DE RECUPERAR UNA PELÍCULA POR ID, POR GENERO, POR TITULO Y POR AÑO.
 //? ENDPOINTS POST PARA AÑADIR UNA NUEVA PELÍCULA.
 //? ENDPOINTS PUT PARA MODIFICAR UNA PELÍCULA EXISTENTE.
-//? ENDPOINTS DELETE PARA ELIMINAR UNA PELÍCULA.
+//? ENDPOINTS DELETE PARA ELIMINAR UNA PELÍCULA. AL ELIMINAR LA PELÍCULA SE QUITARÁ DE LAS PELICULAS DISPONIBLES EN EL CINE CORRESPONDIENTE.
 
 const express = require('express');
 const moviesRouter = express.Router();
 const Movie = require('../model/Movies.js');
+const Cinema = require('../model/Cinemas.js');
 const createError = require('../utils/errors/createError.js');
 const isAuth = require('../utils/middlewares/auth.middleware.js');
 const isAuthAdmin = require('../utils/middlewares/auth.middleware.js');
@@ -45,7 +46,7 @@ moviesRouter.get('/paged', async (request, response, next) => {
         }
         response.status(200).json({
             movies: allMovies.slice(startPage, endPage),
-            nextPage: page + 1 <=  maxPage ? page + 1 : null,
+            nextPage: page + 1 <= maxPage ? page + 1 : null,
             previousPage: page - 1 < 1 ? null : page - 1
         });
     } catch (error) {
@@ -128,9 +129,21 @@ moviesRouter.put('/:id', [isAuthAdmin], async (request, response, next) => {
         next(error)
     }
 });
-moviesRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
+moviesRouter.delete('/:id', [isAuthAdmin] , async (request, response, next) => {
     try {
         const id = request.params.id;
+        const currentMovie = await Movie.findById(id);
+        const cinemasHaveMovie = await Cinema.find({
+            movies: { $in: id }
+        });
+        const deleteMovie = cinemasHaveMovie.forEach(async cinema => {
+            const cinemaId = cinema._id;
+            await Cinema.findByIdAndUpdate(
+                cinemaId,
+                { $pull: { movies: id } },
+                { new: true }
+            )
+        });
         const deletedMovie = await Movie.findByIdAndDelete(id);
         if (!deletedMovie) {
             return next(createError(`No se encuentra la película con el Id: ${id} para eliminarla`, 404))
@@ -140,5 +153,7 @@ moviesRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
     } catch (error) {
         next(error)
     }
-})
+});
+
+
 module.exports = moviesRouter;
