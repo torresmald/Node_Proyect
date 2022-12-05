@@ -17,6 +17,7 @@ const DB_URL = process.env.DB_URL;
 const path = require('path');
 const cloudinary = require ('cloudinary');
 
+
 connect();
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
