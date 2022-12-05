@@ -15,7 +15,7 @@ const isAuthAdmin = require('../utils/middlewares/auth.middleware.js');
 const upload = require('../utils/middlewares/files.middleware.js');
 const uploadToCloud = require('../utils/middlewares/cloudinary.middleware.js')
 
-moviesRouter.get('/', [isAuth], async (request, response, next) => {
+moviesRouter.get('/', async (request, response, next) => {
     try {
         const allMovies = await Movie.find();
         if (allMovies.length === 0) {

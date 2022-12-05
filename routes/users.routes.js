@@ -74,7 +74,7 @@ userRouter.post('/logout', async (request, response, next) => {
         return response.status(304).json('No hay usuario logueado')
     }
 });
-userRouter.put('/editUser/:id', [isAuthAdmin], async (request, response, next) => {
+userRouter.put('/editUser/:id', async (request, response, next) => {
     try {
         const id = request.params.id;
         const modifiedUser = new User({ ...request.body });
@@ -93,11 +93,17 @@ userRouter.put('/editUser/:id', [isAuthAdmin], async (request, response, next) =
     }
 });
 
-userRouter.put('/addFavoriteMovie', [isAuthAdmin], async (request, response, next) => {
+userRouter.put('/addFavoriteMovie', async (request, response, next) => {
     try {
         debugger;
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
+        const currentFavoriteCount = currentMovie.favoriteCount;
+        const favoriteUpdated = await Movie.findByIdAndUpdate(
+            movieId,
+            { $set: { favoriteCount: currentFavoriteCount + 1 } },
+            { new: true }
+        );
         const userUpdated = await User.findByIdAndUpdate(
             userId,
             { $push: { favoriteMovies: currentMovie } },
@@ -108,7 +114,7 @@ userRouter.put('/addFavoriteMovie', [isAuthAdmin], async (request, response, nex
         return next(error)
     }
 });
-userRouter.put('/removeFavoriteMovie', [isAuthAdmin] ,async (request, response, next) => {
+userRouter.put('/removeFavoriteMovie', async (request, response, next) => {
     try {
         debugger
         const { userId, movieId } = request.body;
@@ -123,13 +129,25 @@ userRouter.put('/removeFavoriteMovie', [isAuthAdmin] ,async (request, response, 
         return next(error)
     }
 });
-userRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
+userRouter.delete('/:id', async (request, response, next) => {
     try {
+
         const id = request.params.id;
-        const userToDelete = await User.findByIdAndDelete(id);
-        if (!userToDelete) {
+        const currentUser = await User.findById(id);
+        const currentFavoriteMovies = currentUser.favoriteMovies;
+        const updatedFavoriteMovies = currentFavoriteMovies.forEach(async movie => {
+            currentMovie = await Movie.findById(movie._id);
+            currentFavoriteCount = currentMovie.favoriteCount;
+            await Movie.findByIdAndUpdate(
+                movie._id,
+                { $set: { favoriteCount: currentFavoriteCount - 1 } },
+                { new: true }
+            )
+        });
+        if (!currentUser) {
             return next(createError(`No existe el usuario con Id: ${id}`))
         }
+        const deletedUser = await User.findByIdAndDelete(id);
         response.status(200).json(`Usuario con Id: ${id} eliminado con éxito`);
     } catch (error) {
         return next(error)
