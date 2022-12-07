@@ -42,7 +42,7 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 1.  PELÍCULAS
     ```jsx
     1. GET
-    - moviesRouter.get('/' --> OBTENER LISTADO DE TODAS LAS PELICULAS.
+    - moviesRouter.get('/' --> OBTENER LISTADO DE TODAS LAS PELICULAS ORDENADAS POR Nº DE LIKES.
     - moviesRouter.get('/paged' --> LISTADO DE PELICULAS PAGINADAS EN BLOQUES DE 5 PELICULAS. 
     - moviesRouter.get('/id/:id' --> PELICULAS POR ID INDICADO.
     - moviesRouter.get('/genre/:genre' --> PELICULAS POR GENERO INDICADO. 

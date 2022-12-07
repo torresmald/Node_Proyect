@@ -94,7 +94,6 @@ userRouter.put('/editUser/:id', [isAuthAdmin], async (request, response, next) =
 
 userRouter.put('/addFavoriteMovie', [isAuthAdmin], async (request, response, next) => {
     try {
-
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
         const currentFavoriteCount = currentMovie.favoriteCount;
@@ -117,6 +116,12 @@ userRouter.put('/removeFavoriteMovie', [isAuthAdmin], async (request, response, 
     try {
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
+        const currentFavoriteCount = currentMovie.favoriteCount;
+        const favoriteUpdated = await Movie.findByIdAndUpdate(
+            movieId,
+            { $set: { favoriteCount: currentFavoriteCount  -1 } },
+            { new: true }
+        );
         const userUpdated = await User.findByIdAndUpdate(
             userId,
             { $pull: { favoriteMovies: movieId } },

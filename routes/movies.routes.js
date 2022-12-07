@@ -17,7 +17,7 @@ const uploadToCloud = require('../utils/middlewares/cloudinary.middleware.js')
 
 moviesRouter.get('/', [isAuth], async (request, response, next) => {
     try {
-        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 });
+        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 }).sort({favoriteCount: -1});
         if (allMovies.length === 0) {
             return next(createError('No hay películas disponibles', 404))
         }
@@ -31,7 +31,7 @@ moviesRouter.get('/paged', [isAuth], async (request, response, next) => {
         let page = request.query.page;
         const startPage = (page - 1) * 5;
         const endPage = page * 5;
-        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 });
+        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 }).sort({year: 1});
         if (allMovies.length === 0) {
             return next(createError('No hay películas disponibles', 404))
         }
@@ -80,7 +80,7 @@ moviesRouter.get('/title/:title', [isAuth], async (request, response, next) => {
 moviesRouter.get('/genre/:genre', [isAuth], async (request, response, next) => {
     try {
         const genreMovie = request.params.genre;
-        const movie = await Movie.find({ genre: genreMovie });
+        const movie = await Movie.find({ genre: genreMovie }).sort({title: 1});
         if (movie.length === 0) {
             return next(createError(`No hay ninguna película con el Género: ${genreMovie}`, 404))
         }
