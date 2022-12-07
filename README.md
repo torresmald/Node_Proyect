@@ -4,11 +4,15 @@
 
 Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usuarios. En esta API podrás acceder a recursos albergados en un Servidor Cloud en MongoAtlas utilizando MongoDB como BBDD. La API está desplegada utilizando Vercel como Host.
 
-## RECURSOS UTILIZADOS:
+## HECHO CON
 
-- POSTMAN --> Lanzamiento de peticiones.
-- CLOUDINARY --> HOST de Imágenes.
-- VERCEL --> Host para deploy de la API.
+<p align="center"> 
+      <a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> 
+    <a href="https://www.mongodb.com/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> 
+    <a href="https://nodejs.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> 
+</p>
+
 
 ### DEPENDENCIAS UTILIZADAS
 
@@ -28,7 +32,7 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 
 - NODEMON--> Utilizada durante el desarrollo de la aplicación para comprobar chequear los cambios en el código y recargar el Servidor.
 
-#### ENDPOINTS DISPONIBLES:
+## ENDPOINTS DISPONIBLES:
 ##### **LOS ENDPOINT TIPO GET ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO USER Y ADMIN**.
 ##### **LOS ENDPOINT TIPO POST, PUT Y DELETE SÓLO ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO ADMIN**.
 
@@ -89,14 +93,15 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
     - userRouter.delete('/:id' --> ELIMINAR UN USUARIO POR SU ID. AL HACERLO, SE RESTARA 1 DEL CONTADOR DE PELICULAS FAVORITAS QUE TENGA DICHO USUARIO.
     ```
 
-# RECURSOS
+## RECURSOS
 
 - https://www.mongodb.com/atlas/database
 - https://vercel.com/
 - https://cloudinary.com/
+- https://www.postman.com/
 
 
-# CONTACTO
+## CONTACTO
 
 Project Repo: https://github.com/torresmald/Node_Proyect
 
