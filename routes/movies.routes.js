@@ -11,11 +11,11 @@ const Movie = require('../model/Movies.js');
 const Cinema = require('../model/Cinemas.js');
 const createError = require('../utils/errors/createError.js');
 const isAuth = require('../utils/middlewares/auth.middleware.js');
-const isAuthAdmin = require('../utils/middlewares/auth.middleware.js');
+const isAuthAdmin = require('../utils/middlewares/authAdmin.middleware.js');
 const upload = require('../utils/middlewares/files.middleware.js');
 const uploadToCloud = require('../utils/middlewares/cloudinary.middleware.js')
 
-moviesRouter.get('/', async (request, response, next) => {
+moviesRouter.get('/', [isAuth], async (request, response, next) => {
     try {
         const allMovies = await Movie.find();
         if (allMovies.length === 0) {
@@ -26,7 +26,7 @@ moviesRouter.get('/', async (request, response, next) => {
         next(error)
     }
 });
-moviesRouter.get('/paged', async (request, response, next) => {
+moviesRouter.get('/paged', [isAuth], async (request, response, next) => {
     try {
         let page = request.query.page;
         const startPage = (page - 1) * 5;
@@ -94,7 +94,7 @@ moviesRouter.get('/year/:year', [isAuth], async (request, response, next) => {
         const year = request.params.year;
         const movie = await Movie.find({ year: { $eq: year } });
         if (movie.length === 0) {
-            return next(createError(`No hay películas cuyo año sea posterior a ${year}`, 404))
+            return next(createError(`No hay películas cuyo año sea: ${year}`, 404))
         }
         return response.status(200).json(movie);
     } catch (error) {
@@ -129,7 +129,7 @@ moviesRouter.put('/:id', [isAuthAdmin], async (request, response, next) => {
         next(error)
     }
 });
-moviesRouter.delete('/:id', [isAuthAdmin] , async (request, response, next) => {
+moviesRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
     try {
         const id = request.params.id;
         const currentMovie = await Movie.findById(id);

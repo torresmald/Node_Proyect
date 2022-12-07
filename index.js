@@ -14,6 +14,8 @@ const session = require ('express-session');
 const MongoStore = require ('connect-mongo');
 const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL;
+
+
 const path = require('path');
 const cloudinary = require ('cloudinary');
 
@@ -27,7 +29,7 @@ cloudinary.config({
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({extended:false}));
-// server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, '/tmp/')));
 
 require('./utils/authentication/passport.js');
 server.use(session({
@@ -45,7 +47,7 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.get('/', (request, response) => {
-  response.status(200).json('Bienvenido a la Coleccion de Películas y Cines')
+  response.status(200).json('Bienvenido a la Coleccion de Películas, Cines y Salas de Cine.')
 })
 server.use('/users', userRouter);
 server.use('/theaters', theaterRouter)

@@ -14,10 +14,10 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 
 - BCRYPT--> Para la encriptación/desencriptacion de las password de Users.
 - CLOUDINARY--> Host de imágenes utilizado para subir las imagenes de cines/películas desde el servidor.
-- CONNECT-MONGO--> Necesario para poder guardar en la BBDD las sesiones de los usuarios. 
+- CONNECT-MONGO--> Necesario para poder guardar en la BBDD las sesiones de los usuarios.
 - CORS--> Evitamos problemas de origen cruzado al utilizar Postman para lanzar las peticiones.
 - DOTENV--> Dependencia que nos permite utilizar las variables de entorno y securizar la aplicación.
-- EXPRESS--> Framework utilizado como entorno de desarrollo. 
+- EXPRESS--> Framework utilizado como entorno de desarrollo.
 - EXPRESS SESION--> Permite la gestión de sesiones de usuario.
 - MONGOOSE--> Para la conexión con la BBDD de MongoDB.
 - MULTER--> Nos permite la subida de archivos por parte del usuario al servidor.
@@ -26,42 +26,79 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 
 #### DEPENDENCIAS DE DESARROLLO:
 
-- NODEMON--> Utilizada durante el desarrollo de la aplicación para comprobar chequear los cambios en el código y recargar el Servidor. 
+- NODEMON--> Utilizada durante el desarrollo de la aplicación para comprobar chequear los cambios en el código y recargar el Servidor.
 
 #### ENDPOINTS DISPONIBLES:
+##### **LOS ENDPOINT TIPO GET ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO USER Y ADMIN**.
 ##### **LOS ENDPOINT TIPO POST, PUT Y DELETE SÓLO ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO ADMIN**.
+
 ###### <sub>IMAGENES EN FORMATO ÚNICAMENTE PNG, JPG, JPEG</sub>
 
+1.  PELÍCULAS
+    ```jsx
+    1. GET
+    - moviesRouter.get('/' --> OBTENER LISTADO DE TODAS LAS PELICULAS.
+    - moviesRouter.get('/paged' --> LISTADO DE PELICULAS PAGINADAS EN BLOQUES DE 5 PELICULAS. 
+    - moviesRouter.get('/id/:id' --> PELICULAS POR ID INDICADO.
+    - moviesRouter.get('/genre/:genre' --> PELICULAS POR GENERO INDICADO. 
+    - moviesRouter.get('/title/:title' --> PELICULAS POR TITULO INDICADO.
+    - moviesRouter.get('/year/:year' --> PELICULAS POR AÑO INDICADO. 
+    2. POST
+    - moviesRouter.post('/' --> AÑADIR UNA PELÍCULA. POSIBILIDAD DE AÑADIR UNA IMAGEN.
+    3. PUT
+    - moviesRouter.put('/:id' --> EDITAR UNA PELÍCULA POR SU ID. 
+    4. DELETE
+    - moviesRouter.delete('/:id' --> ELIMINAR UNA PELÍCULA POR SU ID. SE BORRARÁ DEL CINE QUE LA TENGA EN CARTELERA. 
+    ```
+2.  CINES 
+    ```jsx
+    1. GET
+    - cinemasRouter.get('/' --> OBTENER LISTADO DE TODOS LOS CINES.
+    - cinemasRouter.get('/movie/:movie' --> LISTADO DE CINES QUE TENGAN LA PELICULA INDICADA EN CARTELERA.
+    2. POST
+    - cinemasRouter.post('/' --> AÑADIR UN CINE. POSIBILIDAD DE AÑADIR UNA IMAGEN.
+    3. PUT
+    - cinemasRouter.put('/:id' --> EDITAR UN CINE POR SU ID. 
+    4. DELETE
+    - cinemasRouter.delete('/:id' --> ELIMINAR UN CINE POR SU ID. 
+    ```
+3.  SALAS DE CINES 
+    ```jsx
+    1. GET
+    - theaterRouter.get('/' --> OBTENER LISTADO DE TODAS LAS SALAS DE CINE.
+    2. POST
+    - theaterRouter.post('/' --> AÑADIR UNA SALA DE CINE.
+    3. PUT
+    - theaterRouter.put('/:id' --> EDITAR UNA SALA DE CINE POR SU ID. 
+    4. DELETE
+    - theaterRouter.delete('/:id' --> ELIMINAR UNA SALA DE CINE POR SU ID. 
+    ```
+4.  USUARIOS
+    ```jsx
+    1. GET
+    - userRouter.get('/' --> OBTENER LISTADO DE TODOS LOS USUARIOS.
+    2. POST
+    - userRouter.post('/register' --> POSIBILIDAD DE REGISTRARSE. SE REQUIERE UN USERNAME Y UN PASSWORD. EMAIL Y TIPO DE ROL OPCIONALES.
+    - userRouter.post('/login' --> POSIBILIDAD DE LOGUEARSE UNA VEZ REGISTRADO. 
+    - userRouter.post('/logout' --> POSIBILIDAD DE DESLOGUEARSE. 
+    3. PUT
+    - userRouter.put('/editUser/:id' --> EDITAR UN USUARIO POR SU ID.
+    - userRouter.put('/addFavoriteMovie' --> POSIBILIDAD DE AÑADIR A UN USUARIO SUS PELÍCULAS FAVORITAS. 
+    userRouter.put('/removeFavoriteMovie' --> POSIBILIDAD DE ELIMINAR A UN USUARIO SUS PELÍCULAS FAVORITAS.
+    4. DELETE
+    - userRouter.delete('/:id' --> ELIMINAR UN USUARIO POR SU ID. AL HACERLO, SE RESTARA 1 DEL CONTADOR DE PELICULAS FAVORITAS QUE TENGA DICHO USUARIO.
+    ```
 
-- PELÍCULAS --> 
-    1. GET --> OBTENER LISTADO DE TODAS LAS PELÍCULAS, PELICULAS POR ID, POR AÑO, POR TÍTULO, POR GENERO Y PÁGINADAS EN BLOQUES DE 5 PELÍCULAS.
-    2. POST--> POSIBILIDAD DE AÑADIR UNA NUEVA PELÍCULA.
-    3. PUT--> POSIBILIDAD DE EDITAR UNA PELÍCULA YA EXISTENTE.
-    4. DELETE--> ELIMINAR UNA PELÍCULA POR ID.
+# RECURSOS
 
-- CINES -->
-    1. GET --> OBTENER LISTADO TODOS LOS CINES, CINES POR PELÍCULAS.
-    2. POST--> POSIBILIDAD DE AÑADIR UN NUEVO CINE.
-    3. PUT--> POSIBILIDAD DE EDITAR UN CINE YA EXISTENTE.
-    4. DELETE--> ELIMINAR UN CINE POR ID.
-
-- SALAS --> 
-    1. GET --> OBTENER LISTADO TODAS LAS SALAS DE CINE.
-    2. POST--> POSIBILIDAD DE AÑADIR UNA NUEVA SALA DE CINE.
-    3. PUT--> POSIBILIDAD DE EDITAR UNA SALA EXISTENTE.
-    4. DELETE--> ELIMINAR UNA SALA POR ID.
-
-- USUARIOS --> 
-    1. GET --> OBTENER LISTADO DE TODOS LOS USUARIOS REGISTRADOS.
-    2. POST--> POSIBILIDAD DE REGISTRARSE, LOGUEARSE, DESLOGUEARSE.
-    3. PUT--> POSIBILIDAD DE EDITAR UN USUARIO Y AÑADIR PELÍCULAS A SU COLECCION DE PELÍCULAS FAVORITAS.
-    4. DELETE--> ELIMINAR UNA USUARIO POR ID.
+- https://www.mongodb.com/atlas/database
+- https://vercel.com/
+- https://cloudinary.com/
 
 
-# Contact
+# CONTACTO
 
 Project Repo: https://github.com/torresmald/Node_Proyect
 
-`Diviertete usandola!`
-
+DIVIERTETE USANDOLA!!
 

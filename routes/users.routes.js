@@ -11,7 +11,7 @@ const Movie = require('../model/Movies');
 const User = require('../model/Users');
 const userRouter = express.Router();
 const createError = require('../utils/errors/createError.js');
-const isAuthAdmin = require('../utils/middlewares/auth.middleware');
+const isAuthAdmin = require('../utils/middlewares/authAdmin.middleware.js');
 
 userRouter.get('/', async (request, response, next) => {
     try {
@@ -23,7 +23,6 @@ userRouter.get('/', async (request, response, next) => {
     } catch (error) {
         return next(error)
     }
-
 })
 
 userRouter.post('/register', async (request, response, next) => {
@@ -74,7 +73,7 @@ userRouter.post('/logout', async (request, response, next) => {
         return response.status(304).json('No hay usuario logueado')
     }
 });
-userRouter.put('/editUser/:id', async (request, response, next) => {
+userRouter.put('/editUser/:id', [isAuthAdmin], async (request, response, next) => {
     try {
         const id = request.params.id;
         const modifiedUser = new User({ ...request.body });
@@ -93,9 +92,9 @@ userRouter.put('/editUser/:id', async (request, response, next) => {
     }
 });
 
-userRouter.put('/addFavoriteMovie', async (request, response, next) => {
+userRouter.put('/addFavoriteMovie', [isAuthAdmin], async (request, response, next) => {
     try {
-        debugger;
+
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
         const currentFavoriteCount = currentMovie.favoriteCount;
@@ -114,9 +113,8 @@ userRouter.put('/addFavoriteMovie', async (request, response, next) => {
         return next(error)
     }
 });
-userRouter.put('/removeFavoriteMovie', async (request, response, next) => {
+userRouter.put('/removeFavoriteMovie', [isAuthAdmin], async (request, response, next) => {
     try {
-        debugger
         const { userId, movieId } = request.body;
         const currentMovie = await Movie.findById(movieId);
         const userUpdated = await User.findByIdAndUpdate(
@@ -129,9 +127,8 @@ userRouter.put('/removeFavoriteMovie', async (request, response, next) => {
         return next(error)
     }
 });
-userRouter.delete('/:id', async (request, response, next) => {
+userRouter.delete('/:id', [isAuthAdmin], async (request, response, next) => {
     try {
-
         const id = request.params.id;
         const currentUser = await User.findById(id);
         const currentFavoriteMovies = currentUser.favoriteMovies;

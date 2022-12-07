@@ -9,9 +9,10 @@ const express = require('express');
 const theaterRouter = express.Router();
 const Theater = require('../model/Movies_Theater.js');
 const createError = require('../utils/errors/createError.js');
-const isAuthAdmin = require ('../utils/middlewares/auth.middleware');
+const isAuth = require('../utils/middlewares/auth.middleware.js')
+const isAuthAdmin = require ('../utils/middlewares/authAdmin.middleware.js');
 
-theaterRouter.get('/', async (request, response, next) => {
+theaterRouter.get('/', [isAuth], async (request, response, next) => {
     try {
         const allTheater = await Theater.find().populate('movies').populate('cinema');
         if (allTheater.length === 0) {

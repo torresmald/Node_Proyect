@@ -23,7 +23,7 @@ passport.use(
                     return done(createError('El usuario ya existe, logueate'));
                 }
                 const encryptedPassword = await bcrypt.hash(password, 10);
-                const newUser =  new User({
+                const newUser = new User({
                     username,
                     password: encryptedPassword,
                     role: request.body.role
