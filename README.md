@@ -14,6 +14,23 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 </p>
 
 
+## INSTALACION
+1. DESCARGA DEL REPOSITORIO
+```
+git clone https://github.com/torresmald/Node_Proyect.git
+```
+
+2. INSTALACION DE DEPENDENCIAS UTLIZADAS. 
+
+  ```
+  npm install
+  ```
+
+3. IMPORTACIÓN EN POSTMAN DE TODAS LAS QUERYS.
+```
+Workspace--> Import--> postmancollection.json
+```
+
 ### DEPENDENCIAS UTILIZADAS
 
 - BCRYPT--> Para la encriptación/desencriptacion de las password de Users.
@@ -88,8 +105,8 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
     - userRouter.post('/logout' --> POSIBILIDAD DE DESLOGUEARSE. 
     3. PUT
     - userRouter.put('/editUser/:id' --> EDITAR UN USUARIO POR SU ID.
-    - userRouter.put('/addFavoriteMovie' --> POSIBILIDAD DE AÑADIR A UN USUARIO SUS PELÍCULAS FAVORITAS. 
-    userRouter.put('/removeFavoriteMovie' --> POSIBILIDAD DE ELIMINAR A UN USUARIO SUS PELÍCULAS FAVORITAS.
+    - userRouter.put('/addFavoriteMovie' --> POSIBILIDAD DE AÑADIR A UN USUARIO SUS PELÍCULAS FAVORITAS. SE SUMARA 1 AL CONTADOR DE FAVORITOS DE LA PELICULA. 
+    userRouter.put('/removeFavoriteMovie' --> POSIBILIDAD DE ELIMINAR A UN USUARIO SUS PELÍCULAS FAVORITAS. SE RESTARA 1 AL CONTADOR DE FAVORITOS DE LA PELICULA. 
     4. DELETE
     - userRouter.delete('/:id' --> ELIMINAR UN USUARIO POR SU ID. AL HACERLO, SE RESTARA 1 DEL CONTADOR DE PELICULAS FAVORITAS QUE TENGA DICHO USUARIO.
     ```

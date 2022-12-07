@@ -1,0 +1,809 @@
+{
+	"info": {
+		"_postman_id": "0c5ae934-44e9-4aed-b9a2-3c60d37e4056",
+		"name": "Node Proyect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24491509"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "allMovies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byYear",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies/year/1995",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"year",
+										"1995"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies/id/63907e80dac2fc777e17e91d",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"id",
+										"63907e80dac2fc777e17e91d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byTitle",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies/title/{{getMoviebyTitle}}",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"title",
+										"{{getMoviebyTitle}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byGenre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies/genre/{{getMoviebyGenre}}",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"genre",
+										"{{getMoviebyGenre}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{urlDB}}/movies/paged?page=3",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"paged"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create Movie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Die Hard",
+											"type": "text"
+										},
+										{
+											"key": "director",
+											"value": "John McTiernan",
+											"type": "text"
+										},
+										{
+											"key": "year",
+											"value": "1988",
+											"type": "text"
+										},
+										{
+											"key": "genre",
+											"value": "Action",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "die hard.jpg"
+										},
+										{
+											"key": "favoriteCount",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{urlDB}}/movies",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UPDATE",
+					"item": [
+						{
+							"name": "byID",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"favoriteCount\": 0\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/movies/6390802273a84ca2305104b1",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"6390802273a84ca2305104b1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "byId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/movies/63907e80dac2fc777e17e91b",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"movies",
+										"63907e80dac2fc777e17e91b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cinemas",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "allCinemas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/cinemas",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"cinemas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byMovie",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/cinemas/movie/638f65ac464efd911d9e1242",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"cinemas",
+										"movie",
+										"638f65ac464efd911d9e1242"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create Cinema",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Yelmo",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "3 Aguas",
+											"type": "text"
+										},
+										{
+											"key": "movies",
+											"value": "63907e7fdac2fc777e17e914",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "yelmo.jpg"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{urlDB}}/cinemas",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"cinemas"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UPDATE",
+					"item": [
+						{
+							"name": "byId",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"movies\": [\"63907e80dac2fc777e17e916\",\"63907e80dac2fc777e17e919\", \"63907e80dac2fc777e17e91c\", \"63907e7fdac2fc777e17e90a\",\n    \"63907e7fdac2fc777e17e90b\", \"63907e7fdac2fc777e17e90c\", \"63907e7fdac2fc777e17e910\"]\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/cinemas/63908211715caf6eb8babd89",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"cinemas",
+										"63908211715caf6eb8babd89"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "byId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/cinemas/63906af1a54cac70d0d5e696",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"cinemas",
+										"63906af1a54cac70d0d5e696"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "allUsers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/users",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"pr\",\n    \"email\": \"test@gmail.com\",\n    \"password\": \"1234\",\n    \"role\": \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/register",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"username\": \"torresmald\",\n    \"password\": \"1234\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/login",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/logout/",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"logout",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UPDATE",
+					"item": [
+						{
+							"name": "addFavorite",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"638f6fdb4e71eec4ffd152c1\",\n    \"movieId\": \"63907e7fdac2fc777e17e90b\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/addFavoriteMovie",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"addFavoriteMovie"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "removeFavorite",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"638f669163ef8636231b87bc\",\n    \"movieId\": \"63907e7fdac2fc777e17e913\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/removeFavoriteMovie",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"removeFavoriteMovie"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "byId",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"terd\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/users/editUser/638dc259007c6afc4d89c6e8",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"editUser",
+										"638dc259007c6afc4d89c6e8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "byId",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{urlDB}}/users/638e1e36489922020f5b24f4",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"users",
+										"638e1e36489922020f5b24f4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Theathers",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "allTheathers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/theaters",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"theaters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 1,\n    \"rows\": 12,\n    \"seats\": 200,\n    \"cinema\": \"639081bf715caf6eb8babd83\",\n    \"movies\": \"63907e7fdac2fc777e17e914\"\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/theaters",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"theaters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UPDATE",
+					"item": [
+						{
+							"name": "byID",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rows\": 10\n}"
+								},
+								"url": {
+									"raw": "{{urlDB}}/theaters/639081bf715caf6eb8babd83",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"theaters",
+										"639081bf715caf6eb8babd83"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "byId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{urlDB}}/theaters/639085d1962b4eb17ff6e5af",
+									"host": [
+										"{{urlDB}}"
+									],
+									"path": [
+										"theaters",
+										"639085d1962b4eb17ff6e5af"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "urlDB",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "getMoviebyTitle",
+			"value": "Finding Dory"
+		},
+		{
+			"key": "getMoviebyGenre",
+			"value": "Action"
+		}
+	]
+}
