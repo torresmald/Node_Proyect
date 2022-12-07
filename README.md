@@ -55,6 +55,7 @@ Workspace--> Import--> postmancollection.json
 ##### ALGUNOS ENDPOINTS GET TIENEN CAMPOS FILTRADOS QUE NO SE MOSTRARÁN EN LA PETICIÓN
 
 ###### <sub>IMAGENES EN FORMATO ÚNICAMENTE PNG, JPG, JPEG</sub>
+###### <sub>Las cookies tienen un tiempo de expiracion de 2 horas.</sub>
 
 1.  PELÍCULAS
     ```jsx

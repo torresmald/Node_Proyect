@@ -5,7 +5,7 @@
 const multer = require ('multer');
 const path = require ('path');
 const createError = require ('../errors/createError.js')
-const VALID_FILES = ['image/png', 'image/jpg', 'image/jpeg'];
+const VALID_FILES = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
 
 
 const fileFilter = (request, file, cb) => {
