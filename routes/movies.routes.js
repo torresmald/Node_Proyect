@@ -92,7 +92,7 @@ moviesRouter.get('/genre/:genre', [isAuth], async (request, response, next) => {
 moviesRouter.get('/year/:year', [isAuth], async (request, response, next) => {
     try {
         const year = request.params.year;
-        const movie = await Movie.find({ year: { $eq: year } });
+        const movie = await Movie.find({ year: { $gte: year } });
         if (movie.length === 0) {
             return next(createError(`No hay películas cuyo año sea: ${year}`, 404))
         }
