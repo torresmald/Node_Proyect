@@ -54,7 +54,7 @@ Workspace--> Import--> postmancollection.json
 #### **LOS ENDPOINT TIPO POST, PUT Y DELETE SÓLO ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO ADMIN**.
 ##### ALGUNOS ENDPOINTS GET TIENEN CAMPOS FILTRADOS QUE NO SE MOSTRARÁN EN LA PETICIÓN
 
-###### <sub>IMAGENES EN FORMATO ÚNICAMENTE PNG, JPG, JPEG</sub>
+###### <sub>IMAGENES EN FORMATO ÚNICAMENTE PNG, JPG, JPEG, GIF</sub>
 ###### <sub>Las cookies tienen un tiempo de expiracion de 2 horas.</sub>
 
 1.  PELÍCULAS
@@ -125,5 +125,7 @@ Workspace--> Import--> postmancollection.json
 - Project Repo: https://github.com/torresmald/Node_Proyect
 - Email: jonathan.torresmald@gmail.com
 
-DIVIERTETE USANDOLA!!
+DIVIERTETE USANDOLA......!!
+
+![Image Movies](https://res.cloudinary.com/dpyvlsksj/image/upload/v1670418107/u06tjvt3rdseazby8apn.gif)
 
