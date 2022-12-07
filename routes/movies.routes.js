@@ -17,7 +17,7 @@ const uploadToCloud = require('../utils/middlewares/cloudinary.middleware.js')
 
 moviesRouter.get('/', [isAuth], async (request, response, next) => {
     try {
-        const allMovies = await Movie.find();
+        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 });
         if (allMovies.length === 0) {
             return next(createError('No hay películas disponibles', 404))
         }
@@ -31,7 +31,7 @@ moviesRouter.get('/paged', [isAuth], async (request, response, next) => {
         let page = request.query.page;
         const startPage = (page - 1) * 5;
         const endPage = page * 5;
-        const allMovies = await Movie.find();
+        const allMovies = await Movie.find({}, { createdAt: 0, updatedAt: 0, __v: 0 });
         if (allMovies.length === 0) {
             return next(createError('No hay películas disponibles', 404))
         }
@@ -56,7 +56,7 @@ moviesRouter.get('/paged', [isAuth], async (request, response, next) => {
 moviesRouter.get('/id/:id', [isAuth], async (request, response, next) => {
     try {
         const idMovie = request.params.id;
-        const movie = await Movie.find({ _id: idMovie });
+        const movie = await Movie.find({ _id: idMovie }, { _id: 0, createdAt: 0, updatedAt: 0 });
         if (movie.length === 0) {
             return next(createError(`No hay ninguna película con el Id: ${idMovie}`, 404))
         }
@@ -92,7 +92,7 @@ moviesRouter.get('/genre/:genre', [isAuth], async (request, response, next) => {
 moviesRouter.get('/year/:year', [isAuth], async (request, response, next) => {
     try {
         const year = request.params.year;
-        const movie = await Movie.find({ year: { $gte: year } });
+        const movie = await Movie.find({year: {$gte: year}}, { favoriteCount: 0, genre: 0, _id: 0, createdAt: 0, updatedAt: 0, __v: 0 }).sort({year: 1});
         if (movie.length === 0) {
             return next(createError(`No hay películas cuyo año sea: ${year}`, 404))
         }

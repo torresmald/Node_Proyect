@@ -33,8 +33,9 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 - NODEMON--> Utilizada durante el desarrollo de la aplicación para comprobar chequear los cambios en el código y recargar el Servidor.
 
 ## ENDPOINTS DISPONIBLES:
-##### **LOS ENDPOINT TIPO GET ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO USER Y ADMIN**.
-##### **LOS ENDPOINT TIPO POST, PUT Y DELETE SÓLO ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO ADMIN**.
+#### **LOS ENDPOINT TIPO GET ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO USER Y ADMIN**.
+#### **LOS ENDPOINT TIPO POST, PUT Y DELETE SÓLO ESTARÁN DISPONIBLES PARA USUARIOS DE TIPO ADMIN**.
+##### ALGUNOS ENDPOINTS GET TIENEN CAMPOS FILTRADOS QUE NO SE MOSTRARÁN EN LA PETICIÓN
 
 ###### <sub>IMAGENES EN FORMATO ÚNICAMENTE PNG, JPG, JPEG</sub>
 
@@ -46,7 +47,7 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
     - moviesRouter.get('/id/:id' --> PELICULAS POR ID INDICADO.
     - moviesRouter.get('/genre/:genre' --> PELICULAS POR GENERO INDICADO. 
     - moviesRouter.get('/title/:title' --> PELICULAS POR TITULO INDICADO.
-    - moviesRouter.get('/year/:year' --> PELICULAS POR AÑO INDICADO. 
+    - moviesRouter.get('/year/:year' --> PELICULAS POR AÑO INDICADO. ORDENADS ASCENDENTE. 
     2. POST
     - moviesRouter.post('/' --> AÑADIR UNA PELÍCULA. POSIBILIDAD DE AÑADIR UNA IMAGEN.
     3. PUT
@@ -58,7 +59,7 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
     ```jsx
     1. GET
     - cinemasRouter.get('/' --> OBTENER LISTADO DE TODOS LOS CINES.
-    - cinemasRouter.get('/movie/:movie' --> LISTADO DE CINES QUE TENGAN LA PELICULA INDICADA EN CARTELERA.
+    - cinemasRouter.get('/movie/:movie' --> LISTADO DE CINES QUE TENGAN LA PELICULA INDICADA EN CARTELERA. ORDENADOS POR NOMBRE DESCENDENTE.
     2. POST
     - cinemasRouter.post('/' --> AÑADIR UN CINE. POSIBILIDAD DE AÑADIR UNA IMAGEN.
     3. PUT
@@ -80,7 +81,7 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 4.  USUARIOS
     ```jsx
     1. GET
-    - userRouter.get('/' --> OBTENER LISTADO DE TODOS LOS USUARIOS.
+    - userRouter.get('/' --> OBTENER LISTADO DE TODOS LOS USUARIOS ORDENADOS POR ROL.
     2. POST
     - userRouter.post('/register' --> POSIBILIDAD DE REGISTRARSE. SE REQUIERE UN USERNAME Y UN PASSWORD. EMAIL Y TIPO DE ROL OPCIONALES.
     - userRouter.post('/login' --> POSIBILIDAD DE LOGUEARSE UNA VEZ REGISTRADO. 
@@ -103,7 +104,8 @@ Bienvenido a la API con una coleccion de Películas, Cines, Salas de Cine y Usua
 
 ## CONTACTO
 
-Project Repo: https://github.com/torresmald/Node_Proyect
+- Project Repo: https://github.com/torresmald/Node_Proyect
+- Email: jonathan.torresmald@gmail.com
 
 DIVIERTETE USANDOLA!!
 

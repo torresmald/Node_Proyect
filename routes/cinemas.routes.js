@@ -29,7 +29,7 @@ cinemasRouter.get('/', [isAuth], async (request, response, next) => {
 cinemasRouter.get('/movie/:movie', [isAuth], async (request, response, next) => {
     try {
         const movie = request.params.movie;
-        const allCinemas = await Cinema.find({ movies: movie }).populate('movies');
+        const allCinemas = await Cinema.find({ movies: movie }, {createdAt: 0, updatedAt: 0, __v: 0}).sort({name: -1}).populate('movies');
         if (allCinemas.length === 0) {
             return next(createError(`No hay cines disponibles con la película requerida: ${movie}`, 404))
         }
