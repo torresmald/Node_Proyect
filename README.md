@@ -112,12 +112,17 @@ Workspace--> Import--> postmancollection.json
     - userRouter.delete('/:id' --> ELIMINAR UN USUARIO POR SU ID. AL HACERLO, SE RESTARA 1 DEL CONTADOR DE PELICULAS FAVORITAS QUE TENGA DICHO USUARIO.
     ```
 
+## EN CONSTRUCCION
+
+- Pendiente de añadir descripcion con Swagger a Endpoints
+
 ## RECURSOS
 
 - https://www.mongodb.com/atlas/database
 - https://vercel.com/
 - https://cloudinary.com/
 - https://www.postman.com/
+- https://swagger.io
 
 
 ## CONTACTO
