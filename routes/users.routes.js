@@ -10,6 +10,48 @@ const userRouter = express.Router();
 const createError = require('../utils/errors/createError.js');
 const isAuthAdmin = require('../utils/middlewares/authAdmin.middleware.js');
 
+/**
+ * @swagger
+ * components:
+ *  schemas: 
+ *      User:
+ *          type: object
+ *          properties:
+ *              username: 
+ *                  type: string
+ *              email:
+ *                  type: string
+ *              password:
+ *                  type: integer
+ *              role:
+ *                  type: string
+ *              favoriteMovies:
+ *                  type: string
+ *          required:
+ *              - username
+ *              - password
+ *          example:
+ *              username: torresmald
+ *              password: 12345678
+ *              role: admin    
+ */
+
+/**
+ * @swagger
+ *  /users/:
+ *      get:
+ *          summary: get all users
+ *          tags: [User]
+ *          responses: 
+ *              200:
+ *                  description: all users
+ *                  content: 
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              items: 
+ *                                  $ref: '#components/schemas/User'
+ */
 userRouter.get('/', async (request, response, next) => {
     try {
         const allUsers = await User.find({}, {password: 0}).sort({role: 1}).populate('favoriteMovies');

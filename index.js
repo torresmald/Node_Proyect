@@ -1,35 +1,55 @@
 require('dotenv').config();
 
 const express = require('express');
-const connect = require ('./utils/db/connect.js');
-const cors = require ('cors');
-const createError = require ('./utils/errors/createError.js');
+const connect = require('./utils/db/connect.js');
+const cors = require('cors');
+const createError = require('./utils/errors/createError.js');
 const server = express();
 const moviesRouter = require('./routes/movies.routes.js');
-const cinemasRouter = require ('./routes/cinemas.routes.js');
-const userRouter = require ('./routes/users.routes.js');
+const cinemasRouter = require('./routes/cinemas.routes.js');
+const userRouter = require('./routes/users.routes.js');
 const theaterRouter = require('./routes/theater.routes.js')
 const passport = require('passport');
-const session = require ('express-session');
-const MongoStore = require ('connect-mongo');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL;
-
-
 const path = require('path');
-const cloudinary = require ('cloudinary');
+const cloudinary = require('cloudinary');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerSpec = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Movies API',
+      version: '1.0.0'
+    },
+    servers: [
+      {
+        url: 'https://node-proyect.vercel.app'
+      }
+    ]
+  },
+  apis: [`${path.join(__dirname, './routes/*.js')}`],
+}
+
+
+
 
 
 connect();
-cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-  api_key: process.env.API_KEY, 
-  api_secret: process.env.API_SECRET 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 server.use(cors());
 server.use(express.json());
-server.use(express.urlencoded({extended:false}));
+server.use(express.urlencoded({ extended: false }));
 server.use(express.static(path.join(__dirname, '/tmp/')));
+
+server.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerJsdoc(swaggerSpec)));
 
 require('./utils/authentication/passport.js');
 server.use(session({
@@ -37,7 +57,7 @@ server.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      maxAge: 7200000
+    maxAge: 7200000
   },
   store: MongoStore.create({
     mongoUrl: DB_URL

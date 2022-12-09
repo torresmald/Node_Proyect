@@ -157,28 +157,28 @@
 									"formdata": [
 										{
 											"key": "title",
-											"value": "Die Hard",
+											"value": "The Shining",
 											"type": "text"
 										},
 										{
 											"key": "director",
-											"value": "John McTiernan",
+											"value": "Stanley Kubrick",
 											"type": "text"
 										},
 										{
 											"key": "year",
-											"value": "1988",
+											"value": "1980",
 											"type": "text"
 										},
 										{
 											"key": "genre",
-											"value": "Action",
+											"value": "Horror",
 											"type": "text"
 										},
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "die hard.jpg"
+											"src": "shinning.gif"
 										},
 										{
 											"key": "favoriteCount",
